@@ -1,5 +1,8 @@
 import re
+
 endl = "\n\n"
+
+
 def sortDictByCount(array):
     less = []
     equal = []
@@ -20,25 +23,6 @@ def sortDictByCount(array):
     else:  # You need to hande the part at the end of the recursion - when you only have one element in your array, just return the array.
         return array
 
-# def quickSort(array):
-#     less = []
-#     equal = []
-#     greater = []
-
-#     if len(array) > 1:
-#         pivot = array[0]
-#         for x in array:
-#             if x < pivot:
-#                 less.append(x)
-#             if x == pivot:
-#                 equal.append(x)
-#             if x > pivot:
-#                 greater.append(x)
-#         # Don't forget to return something!
-#         return quickSort(less)+equal+quickSort(greater)  # Just use the + operator to join lists
-#     # Note that you want equal ^^^^^ not pivot
-#     else:  # You need to hande the part at the end of the recursion - when you only have one element in your array, just return the array.
-#         return array
 
 def getFromTextFile(_file):
     opened_file = open(_file)
@@ -47,7 +31,15 @@ def getFromTextFile(_file):
     from_file = "".join(from_file.split())
     return from_file
 
+def decipher(cipher, key):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    for i, char in enumerate(cipher, 1):
+        index = key.find(char)
+        cipher[i-1] = alphabet[index]
+    return cipher
 
+def findKey(text):
+    return
 
 fromFile = getFromTextFile('./cipher1.txt')
 fileLen = len(fromFile)
@@ -55,8 +47,13 @@ print
 print "File Length: " + str(fileLen)
 
 alphabet = "abcdefghijklmnopqrstuvwxyz"
-cipher = alphabet
-alpha_count = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+key = []
+alpha_count = []
+for i in range(26):
+    key.append('')
+    alpha_count.append(0)
+
 
 
 #Count the number of occurences of each letter
@@ -79,8 +76,11 @@ for item in freq_dict:
     freq = (count / fileLen) * 100
     print item['letter'] + ": " + str(freq) + "  %."
 
+index = alphabet.find(freq_dict[0]['letter'])
+key[index] = 'e'
 
 
+print key
 temp = fromFile
 
 # for i, char in enumerate(temp,1):
@@ -145,7 +145,7 @@ for i in range(10):
 print endl
 print "-"*10 + " 3 letter sequences containing j(\"t\") and t(\"e\") " + "-"*10
 print
-jmatch = re.find("(j\wt)",temp)
+jmatch = re.findall("(j\wt)",temp)
 tmatch = re.findall("tj\w",temp)
 
 print jmatch
